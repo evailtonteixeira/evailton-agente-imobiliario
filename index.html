@@ -67,18 +67,154 @@
   </footer>
 
   <!-- JavaScript -->
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js"
 
-
-<script>
   fetch('https://evailton-server.onrender.com/api/chat',  {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: 'Quero comprar um imóvel' })
+    body: JSON.stringify({ message: 'Quero comprar um apartamento' })
   })
   .then(res => res.json())
-  .then(data => alert("Resposta do backend: " + data.reply));
-</script>
+  .then(data => alert("Resposta do backend: " + data.reply))
+  .catch(err => console.error("Erro:", err));
+
+  <script>
+  function scrollToChat() {
+    const chatSection = document.getElementById('chat-section');
+    chatSection.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      document.getElementById('user-input').focus();
+    }, 400);
+  }
+
+  const messagesContainer = document.getElementById('messages');
+  const chatForm = document.getElementById('chat-form');
+  const userInput = document.getElementById('user-input');
+
+  const agentData = {
+    name: "Evailton Teixeira",
+    phone: "(21) 99999-8888",
+    email: "evailton.teixeira@remax.com.br",
+    cpf: "987.654.321-00",
+    address: "Rua das Acácias, 456, Rio de Janeiro - RJ",
+    specialty: "Especialista em compra, venda, aluguel, financiamentos e investimentos imobiliários há mais de 15 anos.",
+    about: "Eu ofereço consultoria completa para clientes que desejam realizar negócios imobiliários seguros e vantajosos.",
+    greetings: [
+      "Olá! Sou o Evailton, seu especialista imobiliário virtual. Como posso ajudar você hoje?",
+      "Oi! Estou aqui para tirar suas dúvidas sobre imóveis, financiamentos e aluguel.",
+      "Bem-vindo! Pergunte qualquer coisa relacionada ao mercado imobiliário, compra, venda ou locação."
+    ],
+    fallbackResponses: [
+      "Desculpe, não entendi sua pergunta. Poderia reformular, por favor?",
+      "Não tenho essa informação no momento, mas estou aqui para ajudar com imóveis, financiamentos e aluguel.",
+      "Poderia explicar melhor a sua dúvida? Estou pronto para ajudar!"
+    ],
+    knowledgeBase: {
+      compra: "Para comprar um imóvel, avalie localização, preço, estado do imóvel, documentação e financiamento se necessário. Posso ajudar detalhando cada etapa.",
+      venda: "Na venda, é importante precificar corretamente, preparar o imóvel para visitas e apresentar toda documentação. Posso ajudar com dicas e processos legais.",
+      aluguel: "No aluguel, existem contratos claros e protocolos que garantem direitos e deveres. Posso ajudar com termos de contrato, valores e vistoria.",
+      financiamento: "O financiamento permite compra parcelada, mas requer análise de crédito e conhecimento das taxas e prazos. Posso explicar as opções disponíveis.",
+      documentação: "Documentos como matrícula, certidões negativas, IPTU e registro são essenciais em negociação imobiliária. Posso orientar quais documentos são necessários.",
+      investimento: "Investir em imóveis é uma forma sólida de rentabilidade e segurança. Posso apresentar estratégias e tipos de imóveis para investimento."
+    }
+  };
+
+  const knowledgeKeywords = {
+    compra: ["comprar", "compra", "quero comprar", "como comprar", "processo de compra", "passo comprar"],
+    venda: ["vender", "venda", "quero vender", "como vender", "processo de venda", "passo vender"],
+    aluguel: ["alugar", "aluguel", "quero alugar", "como alugar", "processo de aluguel", "passo alugar", "locação"],
+    financiamento: ["financiar", "financiamento", "crédito imobiliário", "juros", "parcelas", "banco"],
+    documentação: ["documentação", "documentos", "registro", "certidões", "iptu"],
+    investimento: ["investir", "investimento", "retorno", "rentabilidade", "lucro", "mercado imobiliário"]
+  };
+
+  function containsKeyword(text, keywords) {
+    return keywords.some(keyword => text.includes(keyword));
+  }
+
+  function randomFromArray(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function getAgentResponse(input) {
+    const cleaned = input.toLowerCase().trim();
+    if (!cleaned) return "Por favor, digite algo para começarmos.";
+
+    if (/oi|olá|bom dia|boa tarde|boa noite/i.test(cleaned)) {
+      return randomFromArray(agentData.greetings);
+    }
+
+    if (/tchau|adeus|falou|até logo/i.test(cleaned)) {
+      return "Até logo! Fico feliz em ajudar.";
+    }
+
+    if (/obrigado|valeu|thanks/i.test(cleaned)) {
+      return "De nada! Estou sempre à disposição.";
+    }
+
+    if (/nome|quem é você/i.test(cleaned)) {
+      return `Sou ${agentData.name}, seu agente virtual.`;
+    }
+
+    if (/telefone|ligar/i.test(cleaned)) {
+      return `Você pode me ligar no número: ${agentData.phone}.`;
+    }
+
+    if (/email|e-mail/i.test(cleaned)) {
+      return `Meu e-mail é: ${agentData.email}.`;
+    }
+
+    if (/cpf/i.test(cleaned)) {
+      return `Meu CPF é: ${agentData.cpf}.`;
+    }
+
+    if (/endereço|localização/i.test(cleaned)) {
+      return `Estou localizado em: ${agentData.address}.`;
+    }
+
+    if (/especialidade|o que faz/i.test(cleaned)) {
+      return agentData.specialty;
+    }
+
+    for (const topic in knowledgeKeywords) {
+      if (containsKeyword(cleaned, knowledgeKeywords[topic])) {
+        return agentData.knowledgeBase[topic];
+      }
+    }
+
+    if (/imóvel|casa|apartamento/i.test(cleaned)) {
+      return "Posso ajudar com tudo relacionado a imóveis: compra, venda, aluguel, financiamento e investimentos. Pergunte algo específico!";
+    }
+
+    return randomFromArray(agentData.fallbackResponses);
+  }
+
+  function appendMessage(text, sender = 'agent') {
+    const msgEl = document.createElement('div');
+    msgEl.classList.add('message', sender === 'agent' ? 'agent' : 'user');
+    msgEl.textContent = text;
+    messagesContainer.appendChild(msgEl);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  chatForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    appendMessage(message, 'user');
+    userInput.value = '';
+
+    setTimeout(() => {
+      const response = getAgentResponse(message);
+      appendMessage(response, 'agent');
+    }, 600);
+  });
+
+  ></script>
+
+
+
 
 </body>
 </html>
