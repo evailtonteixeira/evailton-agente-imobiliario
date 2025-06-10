@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evailton Teixeira - Agente Virtual Imobiliário</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="light-mode">
+  <!-- Header -->
+  <header>
+    <div class="logo">Evailton Teixeira</div>
+    <nav>
+      <ul>
+        <li><a href="#hero-section">Início</a></li>
+        <li><a href="#chat-section">Chat</a></li>
+      </ul>
+    </nav>
+    <button id="theme-toggle">🌙</button>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero" id="hero-section">
+      <h1>Evailton Teixeira - Seu Agente Virtual Imobiliário</h1>
+      <p>Converse comigo para esclarecer todas as dúvidas sobre compra, venda, aluguel e financiamento de imóveis. Estou aqui para ajudar!</p>
+      <button class="cta-btn" onclick="scrollToChat()">Começar Conversa</button>
+    </section>
+
+    <!-- Profile Card -->
+    <section class="profile-card">
+      <img src="assets/images/evailton.jpg" alt="Foto do corretor Evailton Teixeira" class="profile-photo" />
+      <div class="profile-info">
+        <h2>Evailton Teixeira</h2>
+        <p><span class="info-label">Telefone:</span> (21) 99999-8888</p>
+        <p><span class="info-label">Email:</span> evailton.teixeira@remax.com.br</p>
+        <p><span class="info-label">CPF:</span> 987.654.321-00</p>
+        <p><span class="info-label">Endereço:</span> Rua das Acácias, 456, Rio de Janeiro - RJ</p>
+        <p class="profile-about">Especialista com mais de 15 anos no mercado imobiliário, auxiliando clientes em compra, venda, aluguel, financiamentos e investimentos imobiliários.</p>
+      </div>
+    </section>
+
+    <!-- Chat Interface -->
+    <section class="chat-card" id="chat-section">
+      <div class="messages" id="messages" aria-live="polite"></div>
+      <form id="chat-form" class="input-area">
+        <input type="text" id="user-input" placeholder="Digite sua mensagem..." required spellcheck="false" />
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Evailton Teixeira - Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="assets/js/main.js"></script>
+
+
+<script>
+  fetch('https://evailton-server.onrender.com/api/chat',  {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: 'Quero comprar um imóvel' })
+  })
+  .then(res => res.json())
+  .then(data => alert("Resposta do backend: " + data.reply));
+</script>
+
+</body>
+</html>
