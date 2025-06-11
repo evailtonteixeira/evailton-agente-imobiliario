@@ -4,24 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evailton Teixeira - Agente Virtual Imobiliário</title>
-
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" />
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-
-  <!-- Manifest PWA -->
   <link rel="manifest" href="manifest.json">
-
-  <!-- CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body class="light-mode">
   <!-- Header -->
-  <header>
+  <header class="site-header">
     <div class="logo">Evailton Teixeira</div>
-    <nav>
+    <nav class="main-nav">
       <ul>
         <li><a href="#hero-section">Início</a></li>
         <li><a href="#chat-section">Chat</a></li>
@@ -31,7 +22,7 @@
   </header>
 
   <!-- Hero Section -->
-  <main>
+  <main class="main-content">
     <section class="hero" id="hero-section">
       <h1>Evailton Teixeira - Seu Agente Virtual Imobiliário</h1>
       <p>Converse comigo para esclarecer todas as dúvidas sobre compra, venda, aluguel e financiamento de imóveis. Estou aqui para ajudar!</p>
@@ -40,14 +31,15 @@
 
     <!-- Profile Card -->
     <section class="profile-card">
-      <img src="assets/images/evailton.jpg" alt="Foto do corretor Evailton Teixeira" class="profile-photo" />
+      <img src="images/evailton.jpg" alt="Foto do corretor Evailton Teixeira" class="profile-photo" />
       <div class="profile-info">
         <h2>Evailton Teixeira</h2>
-        <p><span class="info-label">Telefone:</span> (21) 99999-8888</p>
+        <p><span class="info-label">CRECI:</span> 12679</p>
+        <p><span class="info-label">Empresa:</span> RE/MAX Lançamentos</p>
+        <p><span class="info-label">WhatsApp:</span> (27) 99759-3379</p>
         <p><span class="info-label">Email:</span> evailton.teixeira@remax.com.br</p>
-        <p><span class="info-label">CPF:</span> 987.654.321-00</p>
-        <p><span class="info-label">Endereço:</span> Rua das Acácias, 456, Rio de Janeiro - RJ</p>
-        <p class="profile-about">Especialista com mais de 15 anos no mercado imobiliário, auxiliando clientes em compra, venda, aluguel, financiamentos e investimentos imobiliários.</p>
+        <p><span class="info-label">Endereço:</span> Rua Leocádia Pedra dos Santos, 115 - sala 204 - Enseada do Suá, Vitória - ES, 29050-370</p>
+        <p class="profile-about">Especialista em lançamentos imobiliários com sólida base técnica e visão humana do negócio. Oferece consultoria personalizada para compra, venda, aluguel e investimentos imobiliários.</p>
       </div>
     </section>
 
@@ -55,166 +47,18 @@
     <section class="chat-card" id="chat-section">
       <div class="messages" id="messages" aria-live="polite"></div>
       <form id="chat-form" class="input-area">
-        <input type="text" id="user-input" placeholder="Digite sua mensagem..." required spellcheck="false" />
+        <input type="text" id="user-input" autocomplete="off" placeholder="Digite sua mensagem..." required spellcheck="false" />
         <button type="submit">Enviar</button>
       </form>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer>
+  <footer class="site-footer">
     <p>&copy; 2025 Evailton Teixeira - Todos os direitos reservados.</p>
   </footer>
 
   <!-- JavaScript -->
-  <script src="assets/js/main.js"
-
-  fetch('https://evailton-server.onrender.com/api/chat',  {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: 'Quero comprar um apartamento' })
-  })
-  .then(res => res.json())
-  .then(data => alert("Resposta do backend: " + data.reply))
-  .catch(err => console.error("Erro:", err));
-
-  <script>
-  function scrollToChat() {
-    const chatSection = document.getElementById('chat-section');
-    chatSection.scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => {
-      document.getElementById('user-input').focus();
-    }, 400);
-  }
-
-  const messagesContainer = document.getElementById('messages');
-  const chatForm = document.getElementById('chat-form');
-  const userInput = document.getElementById('user-input');
-
-  const agentData = {
-    name: "Evailton Teixeira",
-    phone: "(21) 99999-8888",
-    email: "evailton.teixeira@remax.com.br",
-    cpf: "987.654.321-00",
-    address: "Rua das Acácias, 456, Rio de Janeiro - RJ",
-    specialty: "Especialista em compra, venda, aluguel, financiamentos e investimentos imobiliários há mais de 15 anos.",
-    about: "Eu ofereço consultoria completa para clientes que desejam realizar negócios imobiliários seguros e vantajosos.",
-    greetings: [
-      "Olá! Sou o Evailton, seu especialista imobiliário virtual. Como posso ajudar você hoje?",
-      "Oi! Estou aqui para tirar suas dúvidas sobre imóveis, financiamentos e aluguel.",
-      "Bem-vindo! Pergunte qualquer coisa relacionada ao mercado imobiliário, compra, venda ou locação."
-    ],
-    fallbackResponses: [
-      "Desculpe, não entendi sua pergunta. Poderia reformular, por favor?",
-      "Não tenho essa informação no momento, mas estou aqui para ajudar com imóveis, financiamentos e aluguel.",
-      "Poderia explicar melhor a sua dúvida? Estou pronto para ajudar!"
-    ],
-    knowledgeBase: {
-      compra: "Para comprar um imóvel, avalie localização, preço, estado do imóvel, documentação e financiamento se necessário. Posso ajudar detalhando cada etapa.",
-      venda: "Na venda, é importante precificar corretamente, preparar o imóvel para visitas e apresentar toda documentação. Posso ajudar com dicas e processos legais.",
-      aluguel: "No aluguel, existem contratos claros e protocolos que garantem direitos e deveres. Posso ajudar com termos de contrato, valores e vistoria.",
-      financiamento: "O financiamento permite compra parcelada, mas requer análise de crédito e conhecimento das taxas e prazos. Posso explicar as opções disponíveis.",
-      documentação: "Documentos como matrícula, certidões negativas, IPTU e registro são essenciais em negociação imobiliária. Posso orientar quais documentos são necessários.",
-      investimento: "Investir em imóveis é uma forma sólida de rentabilidade e segurança. Posso apresentar estratégias e tipos de imóveis para investimento."
-    }
-  };
-
-  const knowledgeKeywords = {
-    compra: ["comprar", "compra", "quero comprar", "como comprar", "processo de compra", "passo comprar"],
-    venda: ["vender", "venda", "quero vender", "como vender", "processo de venda", "passo vender"],
-    aluguel: ["alugar", "aluguel", "quero alugar", "como alugar", "processo de aluguel", "passo alugar", "locação"],
-    financiamento: ["financiar", "financiamento", "crédito imobiliário", "juros", "parcelas", "banco"],
-    documentação: ["documentação", "documentos", "registro", "certidões", "iptu"],
-    investimento: ["investir", "investimento", "retorno", "rentabilidade", "lucro", "mercado imobiliário"]
-  };
-
-  function containsKeyword(text, keywords) {
-    return keywords.some(keyword => text.includes(keyword));
-  }
-
-  function randomFromArray(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
-
-  function getAgentResponse(input) {
-    const cleaned = input.toLowerCase().trim();
-    if (!cleaned) return "Por favor, digite algo para começarmos.";
-
-    if (/oi|olá|bom dia|boa tarde|boa noite/i.test(cleaned)) {
-      return randomFromArray(agentData.greetings);
-    }
-
-    if (/tchau|adeus|falou|até logo/i.test(cleaned)) {
-      return "Até logo! Fico feliz em ajudar.";
-    }
-
-    if (/obrigado|valeu|thanks/i.test(cleaned)) {
-      return "De nada! Estou sempre à disposição.";
-    }
-
-    if (/nome|quem é você/i.test(cleaned)) {
-      return `Sou ${agentData.name}, seu agente virtual.`;
-    }
-
-    if (/telefone|ligar/i.test(cleaned)) {
-      return `Você pode me ligar no número: ${agentData.phone}.`;
-    }
-
-    if (/email|e-mail/i.test(cleaned)) {
-      return `Meu e-mail é: ${agentData.email}.`;
-    }
-
-    if (/cpf/i.test(cleaned)) {
-      return `Meu CPF é: ${agentData.cpf}.`;
-    }
-
-    if (/endereço|localização/i.test(cleaned)) {
-      return `Estou localizado em: ${agentData.address}.`;
-    }
-
-    if (/especialidade|o que faz/i.test(cleaned)) {
-      return agentData.specialty;
-    }
-
-    for (const topic in knowledgeKeywords) {
-      if (containsKeyword(cleaned, knowledgeKeywords[topic])) {
-        return agentData.knowledgeBase[topic];
-      }
-    }
-
-    if (/imóvel|casa|apartamento/i.test(cleaned)) {
-      return "Posso ajudar com tudo relacionado a imóveis: compra, venda, aluguel, financiamento e investimentos. Pergunte algo específico!";
-    }
-
-    return randomFromArray(agentData.fallbackResponses);
-  }
-
-  function appendMessage(text, sender = 'agent') {
-    const msgEl = document.createElement('div');
-    msgEl.classList.add('message', sender === 'agent' ? 'agent' : 'user');
-    msgEl.textContent = text;
-    messagesContainer.appendChild(msgEl);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-  }
-
-  chatForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const message = userInput.value.trim();
-    if (!message) return;
-
-    appendMessage(message, 'user');
-    userInput.value = '';
-
-    setTimeout(() => {
-      const response = getAgentResponse(message);
-      appendMessage(response, 'agent');
-    }, 600);
-  });
-
-  ></script>
-
-
-
-
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
